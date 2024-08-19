@@ -40,6 +40,13 @@ function sendMessage(type) {
   }
 }
 
+// 清除对话框
+function clearDialog() {
+  // 清除文本
+  chatMessages.value = []
+  // 多轮对话的话需要重新开启对话
+}
+
 // 把输入框的信息转为html格式
 function textToHTML(text) {
   // 将 Markdown 转换为 HTML
@@ -104,7 +111,7 @@ function textToHTML(text) {
 
                     </div>
                     <div class="chat-content">
-
+                      <bot-chat-box message="您好，我是佰模伝AI知识库助手，有什么可以为您效劳的？"/>
                       <user-chat-box message="..."></user-chat-box>
                       <div v-for="(msg, index) in chatMessages" :key="index">
                         <user-chat-box v-if="msg.type === 'user'" :message="msg.content"/>
@@ -114,7 +121,7 @@ function textToHTML(text) {
                     <div class="chat-tool-bar">
                       <div class="button-bar">
                         <img id="tool-bar-icon" src="@/assets/icon/刷新.png" alt="refresh"/>
-                        <img id="tool-bar-icon" src="@/assets/icon/清理.png" alt="refresh"/>
+                        <img @click="clearDialog" id="tool-bar-icon" src="@/assets/icon/清理.png" alt="refresh"/>
                         <img id="tool-bar-icon" src="@/assets/icon/添加.png" alt="refresh"/>
                         <img id="tool-bar-icon" src="@/assets/icon/帮助.png" alt="refresh"/>
                       </div>

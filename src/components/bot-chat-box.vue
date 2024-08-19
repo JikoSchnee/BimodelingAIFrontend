@@ -13,7 +13,7 @@ const props = defineProps({
 <template>
   <div class="box-container">
     <div class="avatar">
-
+      <img src="@/assets/avatar/机器人.png" alt="bot"/>
     </div>
     <div class="content-container">
       <div class="content">
@@ -51,12 +51,15 @@ const props = defineProps({
 }
 
 .avatar {
-  border-style: solid;
+  border-style: none;
   border-width: 1px;
   border-radius: 1vh;
   margin-right: 6px;
-  width: 5vh;
-  height: 5vh;
+  width: 4vh;
+  height: 4vh;
+  background-color: #666;
+  display: flex;
+  padding: 5px;
 }
 
 .content-container {
@@ -103,4 +106,5 @@ const props = defineProps({
    border-width: 2px;
   border-color: #51bccc;
  }
+
 </style>

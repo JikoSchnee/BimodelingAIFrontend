@@ -33,7 +33,7 @@ const props = defineProps({
       <!--      </div>-->
     </div>
     <div class="avatar">
-
+      <img src="@/assets/avatar/用户.png" alt="user"/>
     </div>
   </div>
 </template>
@@ -51,12 +51,15 @@ const props = defineProps({
 }
 
 .avatar {
-  border-style: solid;
+  border-style: none;
   border-width: 1px;
   border-radius: 1vh;
   margin-left: 6px;
-  width: 5vh;
-  height: 5vh;
+  width: 4vh;
+  height: 4vh;
+  background-color: #999;
+  display: flex;
+  padding: 4px;
 }
 
 .content-container {
