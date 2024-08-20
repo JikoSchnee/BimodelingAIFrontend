@@ -4,6 +4,8 @@ import BotChatBox from "@/components/bot-chat-box.vue";
 import UserChatBox from "@/components/user-chat-box.vue";
 import {marked} from "marked";
 import {ElNotification} from "element-plus";
+import Aside from "@/components/main/Aside.vue";
+import Header from "@/components/main/Header.vue";
 
 const baseName = ref('') // 知识库选择
 
@@ -36,11 +38,6 @@ const emptyInput = () => {
     type: "error",
     position: "bottom-right"
   })
-}
-
-// 官网跳转
-function openOfficialWebsite() {
-  window.open('http://www.bimodeling.cn/')
 }
 
 // 完整发送逻辑
@@ -124,11 +121,12 @@ function textToHTML(content) {
 <template>
   <div class="common-layout">
     <el-container style="height: 100%; width: 100%">
-      <el-aside id="grand-aside" width="15vw">
-        <img src="@/assets/bimodeling-logo.jpg" style="width: 100%" alt="Bimodeling logo" @click="openOfficialWebsite">
-      </el-aside>
+      <Aside/>
       <el-container style="height: 100%; width: 100%">
-        <el-header id="grand-header">Header</el-header>
+        <Header id="grand-header"/>
+        <el-header id="grand-header" style="height: 0; padding: 0; margin: 0">
+          <!-- 不能删-->
+        </el-header>
         <el-main style="padding: 0">
           <el-row :gutter="0" style="height: 100%; width: 100%">
             <el-col :span="15">
