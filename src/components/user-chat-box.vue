@@ -2,11 +2,19 @@
 import {ref} from "vue";
 
 const props = defineProps({
-  message: {
+  rawMessage: {
     type: String,
-    required: true,
     default: '用户问题'
+  },
+  HTMLMessage: {
+    type: String,
+    default: '用户问题'
+  },
+  isPreset: { // 是否是预设的发言
+    type: Boolean,
+    default: false
   }
+
 })
 </script>
 
@@ -15,7 +23,7 @@ const props = defineProps({
     <div class="content-container">
       <div class="content">
         <div class="main-content">
-          <p v-html="message"></p>
+          <p v-html="HTMLMessage"></p>
         </div>
         <div class="content-link">
 

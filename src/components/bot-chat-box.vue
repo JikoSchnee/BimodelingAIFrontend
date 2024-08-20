@@ -2,12 +2,50 @@
 import {ref} from "vue";
 
 const props = defineProps({
-  message: {
+  rawMessage: {
     type: String,
-    required: true,
     default: 'AI回答'
+  },
+  HTMLMessage: {
+    type: String,
+    default: 'AI回答'
+  },
+  isPreset: { // 是否是预设的发言
+    type: Boolean,
+    default: false
   }
 })
+
+// 复制到剪贴板的函数
+const copyToClipboard = () => {
+  if (navigator.clipboard && window.isSecureContext) {
+    // 直接使用 Clipboard API
+    navigator.clipboard.writeText(props.rawMessage).then(() => {
+      console.log("Copied to clipboard:", props.rawMessage);
+    }).catch(err => {
+      console.error("Failed to copy text to clipboard:", err);
+    });
+  } else {
+    // 旧版浏览器的回退方案
+    const textArea = document.createElement("textarea");
+    textArea.value = props.rawMessage;
+    textArea.style.position = "fixed";  // 避免页面滚动
+    textArea.style.opacity = 0; // 隐藏文本域
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      const successful = document.execCommand('copy');
+      const msg = successful ? 'successful' : 'unsuccessful';
+      console.log('Fallback: Copying text command was ' + msg);
+    } catch (err) {
+      console.error('Fallback: Oops, unable to copy', err);
+    }
+
+    document.body.removeChild(textArea);
+  }
+};
 </script>
 
 <template>
@@ -18,15 +56,15 @@ const props = defineProps({
     <div class="content-container">
       <div class="content">
         <div class="main-content">
-          <p v-html="message"></p>
+          <p v-html="HTMLMessage"></p>
         </div>
         <div class="content-link">
-
+          <!-- 跳转链接放的位置 -->
         </div>
       </div>
-      <div class="tool">
+      <div class="tool" v-if="!isPreset">
         <div class="operation">
-          <img class="icon-transition" src="@/assets/icon/复制-灰.png" alt="copy"/>
+          <img class="icon-transition" @click="copyToClipboard" src="@/assets/icon/复制-灰.png" alt="copy"/>
         </div>
         <div class="evaluation">
           <img class="icon-transition" src="@/assets/icon/点赞-灰.png" alt="copy"/>
