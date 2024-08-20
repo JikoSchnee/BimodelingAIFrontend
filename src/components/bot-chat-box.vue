@@ -13,6 +13,10 @@ const props = defineProps({
   isPreset: { // 是否是预设的发言
     type: Boolean,
     default: false
+  },
+  maxWidth: {
+    type: Number,
+    default: 24
   }
 })
 
@@ -51,10 +55,10 @@ const copyToClipboard = () => {
 <template>
   <div class="box-container">
     <div class="avatar">
-      <img src="@/assets/avatar/机器人.png" alt="bot"/>
+      <img src="../assets/avatar/bot.png" alt="bot"/>
     </div>
     <div class="content-container">
-      <div class="content">
+      <div class="content" :style="{maxWidth: maxWidth + 'vw'}">
         <div class="main-content">
           <p v-html="HTMLMessage"></p>
         </div>
@@ -116,7 +120,9 @@ const copyToClipboard = () => {
 
   .main-content {
     display: flex;
-    padding: 10px 30px;
+    padding: 10px 1vw;
+    word-break: break-word; /* 自动换行 */
+  overflow-wrap: break-word; /* 兼容性 */
   }
 }
 

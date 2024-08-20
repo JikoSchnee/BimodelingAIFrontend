@@ -127,7 +127,7 @@ function textToHTML(content) {
         <el-header id="grand-header" style="height: 0; padding: 0; margin: 0">
           <!-- 不能删-->
         </el-header>
-        <el-main style="padding: 0">
+        <el-main style="padding: 0;">
           <el-row :gutter="0" style="height: 100%; width: 100%">
             <el-col :span="15">
               <div class="left-container">
@@ -143,7 +143,7 @@ function textToHTML(content) {
             </el-col>
             <el-col :span="9">
               <div class="right-container">
-                <el-row style="">
+                <el-row>
                   <div class="setting-container">
                     <!--                  <h1>-->
                     <!--                    选择知识库-->
@@ -164,14 +164,14 @@ function textToHTML(content) {
                 <el-row style="height: 2vh">
 
                 </el-row>
-                <el-row>
+
                   <div class="chat-container">
                     <div class="chat-container-header">
 
                     </div>
                     <div class="chat-content">
-                      <bot-chat-box HTMLMessage="您好，我是佰模伝AI知识库助手，有什么可以为您效劳的？<br>点击下方工具栏的问号获取<u>帮助</u>。" :isPreset="true"
-                                    rawMessage="您好，我是佰模伝AI知识库助手，有什么可以为您效劳的？点击下方工具栏的问号获取帮助"/>
+                      <bot-chat-box HTMLMessage="您好，我是佰模伝AI知识库助手，请问有什么可以为您效劳的？<br>点击下方工具栏的问号获取<u>帮助</u>。" :isPreset="true"
+                                    rawMessage="您好，我是佰模伝AI知识库助手，请问有什么可以为您效劳的？点击下方工具栏的问号获取帮助"/>
                       <!--                      <user-chat-box HTMLMessage="..."></user-chat-box>-->
                       <!--                      <bot-chat-box />-->
                       <div v-for="(msg, index) in chatMessages" :key="index">
@@ -235,12 +235,12 @@ function textToHTML(content) {
                         <p>Copyright © 佰模伝信息科技有限公司</p>
                       </div>
                       <div class="send">
-                        <img src="@/assets/icon/发送.png" alt="send" @click="chat" style="height: 100%"/>
+                        <img src="../assets/icon/send.png" alt="send" @click="chat" style="height: 100%"/>
                       </div>
                     </div>
                   </div>
 
-                </el-row>
+
               </div>
             </el-col>
           </el-row>
@@ -291,7 +291,10 @@ function textToHTML(content) {
   width: 100%;
   height: 100%;
   padding-top: 2vh;
+  padding-bottom: 2vh;
   padding-right: 2vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .left-container {
@@ -306,6 +309,10 @@ function textToHTML(content) {
   background-color: rgb(240, 242, 246);
   border-radius: 7px;
   transition: box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
 
   .chat-tool-bar {
     height: 30px;
@@ -318,7 +325,7 @@ function textToHTML(content) {
 
     .button-bar {
       display: flex;
-
+      width: 1px;
       #tool-bar-icon {
         margin-right: 8px;
       }
@@ -349,11 +356,12 @@ function textToHTML(content) {
 }
 
 .chat-content {
-  min-height: 30vh;
-  max-height: 40vh;
+  max-height: 53vh;
   flex: 1; /* This makes the chat-content take up available space */
   overflow-y: auto; /* Allows vertical scrolling */
   background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
 
   border-style: solid;
   border-bottom: none;
@@ -363,11 +371,11 @@ function textToHTML(content) {
 
 
 .chat-message-container {
+  height: max-content;
   border-left-style: solid;
   border-right-style: solid;
   border-width: 2px;
   border-color: #51bccc;
-  height: 100%;
   display: flex;
 }
 

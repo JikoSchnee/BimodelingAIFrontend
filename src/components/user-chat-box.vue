@@ -13,6 +13,10 @@ const props = defineProps({
   isPreset: { // 是否是预设的发言
     type: Boolean,
     default: false
+  },
+  maxWidth: {
+    type: Number,
+    default: 24
   }
 
 })
@@ -21,7 +25,7 @@ const props = defineProps({
 <template>
   <div class="box-container" id="box-container-right">
     <div class="content-container">
-      <div class="content">
+      <div class="content" :style="{width: maxWidth + 'vw'}">
         <div class="main-content">
           <p v-html="HTMLMessage"></p>
         </div>
@@ -41,7 +45,7 @@ const props = defineProps({
       <!--      </div>-->
     </div>
     <div class="avatar">
-      <img src="@/assets/avatar/用户.png" alt="user"/>
+      <img src="../assets/avatar/user.png" alt="user"/>
     </div>
   </div>
 </template>
@@ -87,6 +91,8 @@ const props = defineProps({
   .main-content {
     display: flex;
     padding: 10px 30px;
+    word-break: break-word; /* 自动换行 */
+  overflow-wrap: break-word; /* 兼容性 */
   }
 }
 
