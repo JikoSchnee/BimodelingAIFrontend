@@ -107,6 +107,7 @@ const copyToClipboard = () => {
   background-color: #666;
   display: flex;
   padding: 5px;
+  user-select: none;
 }
 
 .content-container {

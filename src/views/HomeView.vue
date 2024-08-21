@@ -343,6 +343,7 @@ function textToHTML(content) {
     border-style: solid;
     border-width: 2px;
     border-color: #51bccc;
+    user-select: none;
 
     .button-bar {
       display: flex;
@@ -465,6 +466,7 @@ function textToHTML(content) {
   background-color: #192fdd;
   align-items: center; /* 垂直居中 */
   justify-content: center; /* 水平居中 */
+  user-select: none;
 }
 
 .send:hover {

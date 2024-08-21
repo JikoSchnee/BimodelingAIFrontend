@@ -21,9 +21,10 @@ function jumpToLink() {
 </script>
 
 <template>
-  <div class="container" :class="{ active: props.active }" @click="jumpToLink" style="">
+
+  <div :class="['container', { 'container2': props.active }]" @click="jumpToLink">
     <div class="content">
-      {{name}}
+      {{ name }}
     </div>
   </div>
 </template>
@@ -38,7 +39,8 @@ function jumpToLink() {
   display: flex;
   padding: 15px;
   margin-bottom: 0.5vh;
-  background-color: #ddd
+  background-color: #ddd;
+  user-select: none;
 }
 
 .container:hover {
@@ -49,7 +51,8 @@ function jumpToLink() {
   background-color: #666;
 }
 
-.container.active {
+
+.container:active::after {
   background-color: #51bccc;
   color: white;
 }

@@ -72,6 +72,7 @@ const props = defineProps({
   background-color: #999;
   display: flex;
   padding: 4px;
+  user-select: none;
 }
 
 .content-container {
