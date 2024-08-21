@@ -59,6 +59,7 @@ function chat() {
 
     // 把信息推到聊天框
     userMessage()
+    nextTick(scrollToBottom)
     // // 发送api请求，用response接收
     // // TODO: 接入api
     // let response
@@ -66,8 +67,8 @@ function chat() {
     // // 将得到的md内容传给bot
     // botMessage(response.text)
     botMessage("测试回答")
+    nextTick(scrollToBottom)
   }
-  nextTick(scrollToBottom)
 }
 
 // 用户发送信息(type直接留空)
