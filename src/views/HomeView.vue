@@ -57,6 +57,7 @@ function chat() {
     //
     // // 将得到的md内容传给bot
     // botMessage(response.text)
+    botMessage("测试回答")
   }
 }
 
@@ -76,7 +77,7 @@ function botMessage(content, isPreset) {
   if (content.trim()) {
     let HTML = textToHTML(content)
     if (isPreset === 1) chatMessages.value.push({type: 'bot', HTMLMessage: HTML, isPreset: true, rawMessage: content})
-    else chatMessages.value.push({type: 'bot', content: HTML, isPreset: false, rawMessage: content})
+    else chatMessages.value.push({type: 'bot', HTMLMessage: HTML, isPreset: false, rawMessage: content})
   }
 }
 
