@@ -34,7 +34,7 @@ const options = [
 const emptyInput = () => {
   ElNotification({
     title: '输入框为空',
-    message: h('i', { style: 'color: teal' }, '输入框中应输入问题'),
+    message: h('i', {style: 'color: teal'}, '输入框中应输入问题'),
     type: "error",
     position: "bottom-right"
   })
@@ -129,80 +129,89 @@ function textToHTML(content) {
             <el-col :span="4"/>
             <el-col :span="16">
               <div class="right-container">
-                  <div class="chat-container">
-                    <div class="chat-container-header">
+                <div class="chat-container">
+                  <div class="chat-container-header">
 
-                    </div>
-                    <div class="chat-content">
-                      <bot-chat-box :max-width="40" HTMLMessage="您好，我是佰模伝AI知识库助手，有什么可以为您效劳的？<br>点击下方工具栏的问号获取<u>帮助</u>。" :isPreset="true"
-                                    rawMessage="您好，我是佰模伝AI知识库助手，有什么可以为您效劳的？点击下方工具栏的问号获取帮助"/>
-                      <!--                      <user-chat-box HTMLMessage="..."></user-chat-box>-->
-                      <!--                      <bot-chat-box />-->
-                      <div v-for="(msg, index) in chatMessages" :key="index">
-                        <user-chat-box :max-width="40" v-if="msg.type === 'user'" :HTMLMessage="msg.HTMLMessage"
-                                       :isPreset="msg.isPreset" :rawMessage="msg.rawMessage"/>
-                        <bot-chat-box :max-width="40" v-if="msg.type === 'bot'" :HTMLMessage="msg.HTMLMessage" :isPreset="msg.isPreset"
+                  </div>
+                  <div class="chat-content" style="justify-items: auto">
+                    <bot-chat-box :max-width="40"
+                                  HTMLMessage="您好，我是佰模伝AI知识库助手，有什么可以为您效劳的？<br>点击下方工具栏的问号获取<u>帮助</u>。"
+                                  :isPreset="true"
+                                  rawMessage="您好，我是佰模伝AI知识库助手，有什么可以为您效劳的？点击下方工具栏的问号获取帮助"/>
+<!--                                          <user-chat-box HTMLMessage="..."></user-chat-box>-->
+<!--                                          <bot-chat-box />-->
+                    <div v-for="(msg, index) in chatMessages" :key="index" :style="{ display: 'flex' }">
+                      <!-- bot-chat-box 在最左边 -->
+                      <div v-if="msg.type === 'bot'" style="justify-content: start; flex: 1;">
+                        <bot-chat-box :maxWidth="40" :HTMLMessage="msg.HTMLMessage" :isPreset="msg.isPreset"
                                       :rawMessage="msg.rawMessage"/>
                       </div>
-                    </div>
-                    <div class="chat-tool-bar">
-                      <div class="button-bar">
-                        <el-tooltip
-                            class="box-item"
-                            effect="light"
-                            content="重新提问"
-                            placement="top-start"
-                        >
-                          <img id="tool-bar-icon" src="@/assets/icon/刷新.png" alt="refresh"/>
-                        </el-tooltip>
-                        <el-tooltip
-                            class="box-item"
-                            effect="light"
-                            content="清空对话"
-                            placement="top-start"
-                        >
-                          <img @click="clearDialog" id="tool-bar-icon" src="@/assets/icon/清理.png" alt="refresh"/>
-                        </el-tooltip>
-                        <el-tooltip
-                            class="box-item"
-                            effect="light"
-                            content="添加文档（未启用）"
-                            placement="top-start"
-                        >
-                          <img id="tool-bar-icon" src="@/assets/icon/添加.png" alt="refresh"/>
-                        </el-tooltip>
-                        <el-tooltip
-                            class="box-item"
-                            effect="light"
-                            content="使用说明"
-                            placement="top-end"
-                        >
-                          <img @click="getHELP" id="tool-bar-icon" src="@/assets/icon/帮助.png" alt="refresh"/>
-                        </el-tooltip>
-                      </div>
-                    </div>
-                    <div class="chat-message-container">
-                      <div class="character">
-                        <el-input
-                            v-model="text"
-                            style="width: 100%; height: 100%;"
-                            type="textarea"
-                            maxlength="1000"
-                            placeholder="请输入问题"
-                            show-word-limit
-                            :autosize="{ minRows: 6, maxRows: 8}"
-                        />
-                      </div>
-                    </div>
-                    <div class="chat-footer">
-                      <div class="copyright">
-                        <p>Copyright © 佰模伝信息科技有限公司</p>
-                      </div>
-                      <div class="send"  @click="chat">
-                        <img src="../assets/icon/send.png" alt="send" style="height: 100%"/>
+
+                      <!-- user-chat-box 在最右边 -->
+                      <div v-if="msg.type === 'user'" style="justify-content: end; flex: 1;">
+                        <user-chat-box :maxWidth="40" :HTMLMessage="msg.HTMLMessage" :isPreset="msg.isPreset"
+                                       :rawMessage="msg.rawMessage"/>
                       </div>
                     </div>
                   </div>
+                  <div class="chat-tool-bar">
+                    <div class="button-bar">
+                      <el-tooltip
+                          class="box-item"
+                          effect="light"
+                          content="重新提问"
+                          placement="top-start"
+                      >
+                        <img id="tool-bar-icon" src="@/assets/icon/刷新.png" alt="refresh"/>
+                      </el-tooltip>
+                      <el-tooltip
+                          class="box-item"
+                          effect="light"
+                          content="清空对话"
+                          placement="top-start"
+                      >
+                        <img @click="clearDialog" id="tool-bar-icon" src="@/assets/icon/清理.png" alt="refresh"/>
+                      </el-tooltip>
+                      <el-tooltip
+                          class="box-item"
+                          effect="light"
+                          content="添加文档（未启用）"
+                          placement="top-start"
+                      >
+                        <img id="tool-bar-icon" src="@/assets/icon/添加.png" alt="refresh"/>
+                      </el-tooltip>
+                      <el-tooltip
+                          class="box-item"
+                          effect="light"
+                          content="使用说明"
+                          placement="top-end"
+                      >
+                        <img @click="getHELP" id="tool-bar-icon" src="@/assets/icon/帮助.png" alt="refresh"/>
+                      </el-tooltip>
+                    </div>
+                  </div>
+                  <div class="chat-message-container">
+                    <div class="character">
+                      <el-input
+                          v-model="text"
+                          style="width: 100%; height: 100%;"
+                          type="textarea"
+                          maxlength="1000"
+                          placeholder="请输入问题"
+                          show-word-limit
+                          :autosize="{ minRows: 6, maxRows: 8}"
+                      />
+                    </div>
+                  </div>
+                  <div class="chat-footer">
+                    <div class="copyright">
+                      <p>Copyright © 佰模伝信息科技有限公司</p>
+                    </div>
+                    <div class="send" @click="chat">
+                      <img src="../assets/icon/send.png" alt="send" style="height: 100%"/>
+                    </div>
+                  </div>
+                </div>
               </div>
             </el-col>
             <el-col :span="4"/>

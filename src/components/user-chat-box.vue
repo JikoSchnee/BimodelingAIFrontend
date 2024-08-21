@@ -25,7 +25,7 @@ const props = defineProps({
 <template>
   <div class="box-container" id="box-container-right">
     <div class="content-container">
-      <div class="content" :style="{width: maxWidth + 'vw'}">
+      <div class="content" :style="{maxWidth: maxWidth + 'vw'}">
         <div class="main-content">
           <p v-html="HTMLMessage"></p>
         </div>
@@ -77,7 +77,6 @@ const props = defineProps({
 .content-container {
   padding: 0;
   display: flex;
-  justify-items: end;
 }
 
 .content {
@@ -87,12 +86,11 @@ const props = defineProps({
   border-width: 0px;
   border-radius: 1vh;
   min-height: 5vh;
-  min-width: 30px;
-  max-width: 24vw;
-  justify-content: end;
-  justify-items: end;
+
+  justify-content: start;
+
   .main-content {
-    padding: 10px 30px;
+    padding: 10px 2vw;
     word-break: break-word; /* 自动换行 */
   overflow-wrap: break-word; /* 兼容性 */
   }

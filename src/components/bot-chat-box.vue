@@ -116,11 +116,11 @@ const copyToClipboard = () => {
   border-radius: 1vh;
   min-height: 5vh;
   min-width: 90px;
-  max-width: 24vw;
+
 
   .main-content {
     display: flex;
-    padding: 10px 1vw;
+    padding: 10px 2vw;
     word-break: break-word; /* 自动换行 */
   overflow-wrap: break-word; /* 兼容性 */
   }
