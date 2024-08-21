@@ -201,6 +201,7 @@ function textToHTML(content) {
                           placeholder="请输入问题"
                           show-word-limit
                           :autosize="{ minRows: 6, maxRows: 8}"
+                          resize="none"
                       />
                     </div>
                   </div>
