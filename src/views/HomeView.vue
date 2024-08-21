@@ -15,6 +15,7 @@ const chatMessages = ref([]) // 管理聊天消息的数组
 
 const sendButtonVisible = ref(true) // 发送按钮可见性
 
+let lastQuestion = ref('最后一个问题') // 记录最后一次问题，用于重问以及记录反馈
 // 滚动到底部的函数
 function scrollToBottom() {
   let elmnt = document.getElementById("scroll");
@@ -48,6 +49,7 @@ const emptyInput = () => {
 
 // 完整发送逻辑
 function chat() {
+  // console.log('send')
   if (!text.value.trim()) {
     // 文本框为空, 提示
     emptyInput()
@@ -55,19 +57,19 @@ function chat() {
     // 文本框有内容
     // TODO: 屏蔽输入
 
-    // 把信息推到聊天框
-    userMessage()
-    nextTick(scrollToBottom)
-    // // 发送api请求，用response接收
-    // // TODO: 接入api
-    // let response
-    //
-    // // 将得到的md内容传给bot
-    // botMessage(response.text)
-    botMessage("测试回答")
-    nextTick(scrollToBottom)
+    // 在 nextTick 内部处理后续操作
+    nextTick(() => {
+      // 记录最后一次问题
+      const lastQuestion = text.value
+      // 把信息推到聊天框
+      userMessage();
+      nextTick(scrollToBottom);
+      // 模拟发送API请求后的回复
+      botMessage("测试回答", lastQuestion, 0);
+      nextTick(scrollToBottom);
+    });
+    // TODO: 解除输入屏蔽
   }
-
 }
 
 // 用户发送信息(type直接留空)
@@ -82,11 +84,11 @@ function userMessage(type) {
 }
 
 // bot发送信息
-function botMessage(content, isPreset) {
+function botMessage(content, lastQuestion, isPreset) {
   if (content.trim()) {
     let HTML = textToHTML(content)
     if (isPreset === 1) chatMessages.value.push({type: 'bot', HTMLMessage: HTML, isPreset: true, rawMessage: content})
-    else chatMessages.value.push({type: 'bot', HTMLMessage: HTML, isPreset: false, rawMessage: content})
+    else chatMessages.value.push({type: 'bot', HTMLMessage: HTML, isPreset: false, rawMessage: content, rawQuestion: lastQuestion})
   }
 }
 
@@ -107,7 +109,7 @@ async function getHELP() {
   }
   markdownContent = await response.text(); // 使用 await 等待 response.text() 完成
   console.log(markdownContent)
-  botMessage(markdownContent, 1); // 假设 botMessage 用来处理或显示生成的 HTML
+  botMessage(markdownContent, "",1); // 假设 botMessage 用来处理或显示生成的 HTML
     await nextTick(scrollToBottom)
 }
 
@@ -185,12 +187,19 @@ function textToHTML(content) {
                                     rawMessage="您好，我是佰模伝AI知识库助手，请问有什么可以为您效劳的？点击下方工具栏的问号获取帮助"/>
                       <!--                      <user-chat-box HTMLMessage="..."></user-chat-box>-->
                       <!--                      <bot-chat-box />-->
-                      <div v-for="(msg, index) in chatMessages" :key="index">
-                        <user-chat-box v-if="msg.type === 'user'" :HTMLMessage="msg.HTMLMessage"
-                                       :isPreset="msg.isPreset" :rawMessage="msg.rawMessage"/>
-                        <bot-chat-box v-if="msg.type === 'bot'" :HTMLMessage="msg.HTMLMessage" :isPreset="msg.isPreset"
-                                      :rawMessage="msg.rawMessage"/>
+                      <div v-for="(msg, index) in chatMessages" :key="index" :style="{ display: 'flex' }">
+                      <!-- bot-chat-box 在最左边 -->
+                      <div v-if="msg.type === 'bot'" style="justify-content: start; flex: 1;">
+                        <bot-chat-box :maxWidth="40" :HTMLMessage="msg.HTMLMessage" :isPreset="msg.isPreset"
+                                      :rawMessage="msg.rawMessage" :rawQuestion = 'msg.rawQuestion'/>
                       </div>
+
+                      <!-- user-chat-box 在最右边 -->
+                      <div v-if="msg.type === 'user'" style="justify-content: end; flex: 1;">
+                        <user-chat-box :maxWidth="40" :HTMLMessage="msg.HTMLMessage" :isPreset="msg.isPreset"
+                                       :rawMessage="msg.rawMessage"/>
+                      </div>
+                    </div>
                     </div>
                     <div class="chat-tool-bar">
                       <div class="button-bar">

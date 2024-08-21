@@ -2,6 +2,9 @@
 import {ref} from "vue";
 
 const props = defineProps({
+  rawQuestion: { // 回答对应的问题，用于填写反馈
+    type: String
+  },
   rawMessage: {
     type: String,
     default: 'AI回答'
@@ -26,6 +29,7 @@ const copyToClipboard = () => {
     // 直接使用 Clipboard API
     navigator.clipboard.writeText(props.rawMessage).then(() => {
       console.log("Copied to clipboard:", props.rawMessage);
+      console.log("Question:", props.rawQuestion)
     }).catch(err => {
       console.error("Failed to copy text to clipboard:", err);
     });
@@ -61,6 +65,7 @@ const copyToClipboard = () => {
       <div class="content" :style="{maxWidth: maxWidth + 'vw'}">
         <div class="main-content">
           <p v-html="HTMLMessage"></p>
+<!--          <p v-html="rawQuestion"></p>-->
         </div>
         <div class="content-link">
           <!-- 跳转链接放的位置 -->
