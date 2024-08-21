@@ -1,5 +1,5 @@
 <script setup>
-import {h, ref} from 'vue'
+import {h, nextTick, ref} from 'vue'
 import BotChatBox from "@/components/bot-chat-box.vue";
 import UserChatBox from "@/components/user-chat-box.vue";
 import {marked} from "marked";
@@ -14,6 +14,12 @@ const text = ref('') // 输入框
 const chatMessages = ref([]) // 管理聊天消息的数组
 
 const sendButtonVisible = ref(true) // 发送按钮可见性
+
+// 滚动到底部的函数
+function scrollToBottom() {
+  let elmnt = document.getElementById("scroll");
+  elmnt.scrollTop = elmnt.scrollHeight;
+}
 
 const options = [
   {
@@ -59,6 +65,7 @@ function chat() {
     // botMessage(response.text)
     botMessage("测试回答")
   }
+  nextTick(scrollToBottom)
 }
 
 // 用户发送信息(type直接留空)
@@ -99,6 +106,7 @@ async function getHELP() {
   markdownContent = await response.text(); // 使用 await 等待 response.text() 完成
   console.log(markdownContent)
   botMessage(markdownContent, 1); // 假设 botMessage 用来处理或显示生成的 HTML
+    await nextTick(scrollToBottom)
 }
 
 // 把输入框的信息转为html格式

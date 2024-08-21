@@ -1,5 +1,5 @@
 <script setup>
-import {h, ref} from 'vue'
+import {h, nextTick, onMounted, ref, watch} from 'vue'
 import BotChatBox from "@/components/bot-chat-box.vue";
 import UserChatBox from "@/components/user-chat-box.vue";
 import {marked} from "marked";
@@ -7,13 +7,20 @@ import {ElNotification} from "element-plus";
 import Aside from "@/components/main/Aside.vue";
 import Header from "@/components/main/Header.vue";
 
-const baseName = ref('') // 知识库选择
-
 const text = ref('') // 输入框
 
 const chatMessages = ref([]) // 管理聊天消息的数组
 
 const sendButtonVisible = ref(true) // 发送按钮可见性
+
+// 获取聊天内容容器的引用
+const chatContentRef = ref(null);
+
+// 滚动到底部的函数
+function scrollToBottom() {
+  let elmnt = document.getElementById("scroll");
+  elmnt.scrollTop = elmnt.scrollHeight;
+}
 
 const options = [
   {
@@ -60,6 +67,7 @@ function chat() {
     // botMessage(response.text)
     botMessage("测试回答")
   }
+  nextTick(scrollToBottom)
 }
 
 // 用户发送信息(type直接留空)
@@ -100,6 +108,7 @@ async function getHELP() {
   markdownContent = await response.text(); // 使用 await 等待 response.text() 完成
   console.log(markdownContent)
   botMessage(markdownContent, 1); // 假设 botMessage 用来处理或显示生成的 HTML
+  await nextTick(scrollToBottom)
 }
 
 // 把输入框的信息转为html格式
@@ -134,7 +143,7 @@ function textToHTML(content) {
                   <div class="chat-container-header">
 
                   </div>
-                  <div class="chat-content" style="justify-items: auto">
+                  <div id="scroll" class="chat-content" ref="chatContentRef" style="justify-items: auto">
                     <bot-chat-box :max-width="40"
                                   HTMLMessage="您好，我是佰模伝AI知识库助手，有什么可以为您效劳的？<br>点击下方工具栏的问号获取<u>帮助</u>。"
                                   :isPreset="true"
