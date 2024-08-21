@@ -80,7 +80,7 @@ const props = defineProps({
 }
 
 .content {
-  background-color: #ffffff;
+  background-color: #51bccc;
   display: flex;
   border-style: solid;
   border-width: 0px;
@@ -93,6 +93,9 @@ const props = defineProps({
     padding: 10px 2vw;
     word-break: break-word; /* 自动换行 */
   overflow-wrap: break-word; /* 兼容性 */
+  }
+  p {
+    color: #fff;
   }
 }
 

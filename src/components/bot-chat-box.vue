@@ -109,7 +109,7 @@ const copyToClipboard = () => {
 }
 
 .content {
-  background-color: #ffffff;
+  background-color: #eee;
   display: flex;
   border-style: solid;
   border-width: 0px;

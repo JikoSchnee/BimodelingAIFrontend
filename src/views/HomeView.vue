@@ -100,7 +100,7 @@ function clearDialog() {
 // 发送帮助说明
 async function getHELP() {
   let markdownContent;
-  const filePath = 'src/preset/HELP.md';
+  const filePath = 'src/preset/知识库问答说明.md';
   const response = await fetch(filePath); // 使用 await 等待 fetch 完成
   if (!response.ok) {
     throw new Error('Network response was not ok');
@@ -180,7 +180,7 @@ function textToHTML(content) {
                     <div class="chat-container-header">
 
                     </div>
-                    <div class="chat-content">
+                    <div id="scroll" class="chat-content">
                       <bot-chat-box HTMLMessage="您好，我是佰模伝AI知识库助手，请问有什么可以为您效劳的？<br>点击下方工具栏的问号获取<u>帮助</u>。" :isPreset="true"
                                     rawMessage="您好，我是佰模伝AI知识库助手，请问有什么可以为您效劳的？点击下方工具栏的问号获取帮助"/>
                       <!--                      <user-chat-box HTMLMessage="..."></user-chat-box>-->
@@ -318,7 +318,7 @@ function textToHTML(content) {
 .chat-container {
   width: 100%;
   height: 100%;
-  background-color: rgb(240, 242, 246);
+  background-color: rgb(255, 255, 255);
   border-radius: 7px;
   transition: box-shadow 0.3s ease;
   display: flex;
@@ -371,7 +371,7 @@ function textToHTML(content) {
   max-height: 53vh;
   flex: 1; /* This makes the chat-content take up available space */
   overflow-y: auto; /* Allows vertical scrolling */
-  background-color: #f2f2f2;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
 
