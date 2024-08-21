@@ -76,6 +76,8 @@ const props = defineProps({
 
 .content-container {
   padding: 0;
+  display: flex;
+  justify-items: end;
 }
 
 .content {
@@ -85,11 +87,11 @@ const props = defineProps({
   border-width: 0px;
   border-radius: 1vh;
   min-height: 5vh;
-  min-width: 90px;
+  min-width: 30px;
   max-width: 24vw;
-
+  justify-content: end;
+  justify-items: end;
   .main-content {
-    display: flex;
     padding: 10px 30px;
     word-break: break-word; /* 自动换行 */
   overflow-wrap: break-word; /* 兼容性 */

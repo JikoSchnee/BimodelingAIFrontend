@@ -234,8 +234,8 @@ function textToHTML(content) {
                       <div class="copyright">
                         <p>Copyright © 佰模伝信息科技有限公司</p>
                       </div>
-                      <div class="send">
-                        <img src="../assets/icon/send.png" alt="send" @click="chat" style="height: 100%"/>
+                      <div class="send"  @click="chat">
+                        <img src="../assets/icon/send.png" alt="send" style="height: 100%"/>
                       </div>
                     </div>
                   </div>

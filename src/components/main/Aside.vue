@@ -45,10 +45,19 @@ function setActive(index) {
       <el-aside id="grand-aside" width="15vw">
         <img src="@/assets/bimodeling-logo.jpg" style="width: 100%" alt="Bimodeling logo" @click="openOfficialWebsite">
         <div style="height: 26px"></div>
+        <div style="font-size: 20px; font-family: 黑体,serif">
+          功能选择
+        </div>
+        <div style="height: 13px"></div>
         <div v-for="(msg, index) in address" :key="index">
           <category-chooser @click="setActive(index)" :name="msg.name" :link="msg.link" :active="msg.active"/>
         </div>
-<!--        <div style="background-color: #67c23a; flex: 1"></div>-->
+        <div style=" flex: 1; display: flex;align-items: end;justify-content: center">
+          <p>
+            Copyright © <br>佰模伝信息科技有限公司
+          </p>
+
+        </div>
       </el-aside>
 </template>
 

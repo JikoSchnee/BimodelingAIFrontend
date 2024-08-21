@@ -42,6 +42,7 @@ const emptyInput = () => {
 
 // 完整发送逻辑
 function chat() {
+  console.log('send')
   if (!text.value.trim()) {
     // 文本框为空, 提示
     emptyInput()
@@ -102,6 +103,7 @@ async function getHELP() {
 
 // 把输入框的信息转为html格式
 function textToHTML(content) {
+  console.log('textToHTML')
   // 将 Markdown 转换为 HTML
   let HTML = marked(content, {
     gfm: true,
@@ -109,11 +111,6 @@ function textToHTML(content) {
     smartypants: true,
     headerIds: false
   });
-  // // 使用正则表达式替换换行符，但不替换标题后的换行符
-  // HTML = HTML.replace(/(?!<h[1-6]>.*?<\/h[1-6]>)\n/g, '<br>');
-  // // 删除不在 HTML 标签内部的孤立 <br> 标签
-  // // 匹配在 <p>、<div> 或其他标签之间的 <br> 标签
-  // HTML = HTML.replace(/(?<!<[^>]+)>[\s\r\n]*<br>\s*(?![^<]*>)/g, '');
   return HTML
 }
 </script>
@@ -201,8 +198,8 @@ function textToHTML(content) {
                       <div class="copyright">
                         <p>Copyright © 佰模伝信息科技有限公司</p>
                       </div>
-                      <div class="send">
-                        <img src="../assets/icon/send.png" alt="send" @click="chat" style="height: 100%"/>
+                      <div class="send"  @click="chat">
+                        <img src="../assets/icon/send.png" alt="send" style="height: 100%"/>
                       </div>
                     </div>
                   </div>
@@ -315,7 +312,7 @@ function textToHTML(content) {
 }
 
 .chat-content {
-  max-height: 62vh;
+  max-height: 61.5vh;
   flex: 1; /* This makes the chat-content take up available space */
   overflow-y: auto; /* Allows vertical scrolling */
   background-color: #f2f2f2;
