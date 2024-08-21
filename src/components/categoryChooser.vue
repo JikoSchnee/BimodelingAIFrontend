@@ -9,16 +9,19 @@ const props = defineProps({
   link:{
     type: String,
     default: "/database"
+  },
+  active:{
+    type: Boolean
   }
 })
 
 function jumpToLink() {
-  router.push(props.link)
+  // router.push(props.link)
 }
 </script>
 
 <template>
-  <div class="container" @click="jumpToLink" style="">
+  <div class="container" :class="{ active: props.active }" @click="jumpToLink" style="">
     <div class="content">
       {{name}}
     </div>
@@ -42,4 +45,12 @@ function jumpToLink() {
   background-color: #bbb;
 }
 
+.container:active {
+  background-color: #666;
+}
+
+.container.active {
+  background-color: #51bccc;
+  color: white;
+}
 </style>
