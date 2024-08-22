@@ -6,7 +6,7 @@ import {marked} from "marked";
 import {ElNotification} from "element-plus";
 import Aside from "@/components/main/Aside.vue";
 import Header from "@/components/main/Header.vue";
-
+import { chat, userMessage, botMessage, clearDialog, getHELP, textToHTML, scrollToBottom, chatMessages, text } from "../components/js/chatFunctions.js";
 const baseName = ref('') // 知识库选择
 
 const text = ref('') // 输入框
@@ -16,11 +16,6 @@ const chatMessages = ref([]) // 管理聊天消息的数组
 const sendButtonVisible = ref(true) // 发送按钮可见性
 
 let lastQuestion = ref('最后一个问题') // 记录最后一次问题，用于重问以及记录反馈
-// 滚动到底部的函数
-function scrollToBottom() {
-  let elmnt = document.getElementById("scroll");
-  elmnt.scrollTop = elmnt.scrollHeight;
-}
 
 const options = [
   {
@@ -37,98 +32,6 @@ const options = [
   },
 ]
 
-// 聊天提示
-const emptyInput = () => {
-  ElNotification({
-    title: '输入框为空',
-    message: h('i', { style: 'color: teal' }, '输入框中应输入问题'),
-    type: "error",
-    position: "bottom-right"
-  })
-}
-
-// 完整发送逻辑
-function chat() {
-  // console.log('send')
-  if (!text.value.trim()) {
-    // 文本框为空, 提示
-    emptyInput()
-  } else {
-    // 文本框有内容
-    // TODO: 屏蔽输入
-
-    // 在 nextTick 内部处理后续操作
-    nextTick(() => {
-      // 记录最后一次问题
-      const lastQuestion = text.value
-      // 把信息推到聊天框
-      userMessage();
-      nextTick(scrollToBottom);
-      // 模拟发送API请求后的回复
-      botMessage("测试回答", lastQuestion, 0);
-      nextTick(scrollToBottom);
-    });
-    // TODO: 解除输入屏蔽
-  }
-}
-
-// 用户发送信息(type直接留空)
-function userMessage(type) {
-  if (text.value.trim()) {
-    let HTML = textToHTML(text.value)
-    if (type === 0) chatMessages.value.push({type: 'bot', HTMLMessage: HTML, rawMessage: text.value})
-    else chatMessages.value.push({type: 'user', HTMLMessage: HTML, rawMessage: text.value})
-    console.log(chatMessages)
-    text.value = '' // 清空输入框
-  }
-}
-
-// bot发送信息
-function botMessage(content, lastQuestion, isPreset) {
-  if (content.trim()) {
-    let HTML = textToHTML(content)
-    if (isPreset === 1) chatMessages.value.push({type: 'bot', HTMLMessage: HTML, isPreset: true, rawMessage: content})
-    else chatMessages.value.push({type: 'bot', HTMLMessage: HTML, isPreset: false, rawMessage: content, rawQuestion: lastQuestion})
-  }
-}
-
-// 清除对话框
-function clearDialog() {
-  // 清除文本
-  chatMessages.value = []
-  // 多轮对话的话需要重新开启对话
-}
-
-// 发送帮助说明
-async function getHELP() {
-  let markdownContent;
-  const filePath = 'src/preset/知识库问答说明.md';
-  const response = await fetch(filePath); // 使用 await 等待 fetch 完成
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  markdownContent = await response.text(); // 使用 await 等待 response.text() 完成
-  console.log(markdownContent)
-  botMessage(markdownContent, "",1); // 假设 botMessage 用来处理或显示生成的 HTML
-    await nextTick(scrollToBottom)
-}
-
-// 把输入框的信息转为html格式
-function textToHTML(content) {
-  // 将 Markdown 转换为 HTML
-  let HTML = marked(content, {
-    gfm: true,
-    breaks: true,
-    smartypants: true,
-    headerIds: false
-  });
-  // // 使用正则表达式替换换行符，但不替换标题后的换行符
-  // HTML = HTML.replace(/(?!<h[1-6]>.*?<\/h[1-6]>)\n/g, '<br>');
-  // // 删除不在 HTML 标签内部的孤立 <br> 标签
-  // // 匹配在 <p>、<div> 或其他标签之间的 <br> 标签
-  // HTML = HTML.replace(/(?<!<[^>]+)>[\s\r\n]*<br>\s*(?![^<]*>)/g, '');
-  return HTML
-}
 </script>
 
 <template>
