@@ -1,5 +1,4 @@
 <script setup>
-import {ref} from "vue";
 
 const props = defineProps({
   rawQuestion: { // 回答对应的问题，用于填写反馈

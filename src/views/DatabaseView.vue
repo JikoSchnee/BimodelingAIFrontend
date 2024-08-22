@@ -6,7 +6,18 @@ import {marked} from "marked";
 import {ElNotification} from "element-plus";
 import Aside from "@/components/main/Aside.vue";
 import Header from "@/components/main/Header.vue";
-import { chat, userMessage, botMessage, clearDialog, getHELP, textToHTML, scrollToBottom, chatMessages, text } from "../components/js/chatFunctions.js";
+import {
+  chat,
+  userMessage,
+  botMessage,
+  clearDialog,
+  getHELP,
+  textToHTML,
+  scrollToBottom,
+  chatMessages,
+  text,
+  reAsk
+} from "../components/js/chatFunctions.js";
 
 
 const sendButtonVisible = ref(true) // 发送按钮可见性
@@ -89,7 +100,7 @@ const emptyInput = () => {
                           content="重新提问"
                           placement="top-start"
                       >
-                        <img id="tool-bar-icon" src="@/assets/icon/刷新.png" alt="refresh"/>
+                        <img @click="reAsk()" id="tool-bar-icon" src="@/assets/icon/刷新.png" alt="refresh"/>
                       </el-tooltip>
                       <el-tooltip
                           class="box-item"

@@ -12,7 +12,7 @@ const baseName = ref('') // 知识库选择
 
 const sendButtonVisible = ref(true) // 发送按钮可见性
 
-let lastQuestion = ref('最后一个问题') // 记录最后一次问题，用于重问以及记录反馈
+
 
 const options = [
   {

@@ -1,5 +1,4 @@
 <script setup>
-import {ref} from "vue";
 
 const props = defineProps({
   rawMessage: {
@@ -33,16 +32,6 @@ const props = defineProps({
 
         </div>
       </div>
-      <!--      <div class="tool">-->
-      <!--        <div class="operation">-->
-      <!--          <img src="@/assets/icon/复制-灰.png" alt="copy"/>-->
-      <!--        </div>-->
-      <!--        <div class="evaluation">-->
-      <!--          <img src="@/assets/icon/点赞-灰.png" alt="copy"/>-->
-      <!--          <div style="width: 2px; height: 100%; background-color: #707070; margin: 1px 2px; border-radius: 1px"></div>-->
-      <!--          <img src="@/assets/icon/点踩-灰.png" alt="copy"/>-->
-      <!--        </div>-->
-      <!--      </div>-->
     </div>
     <div class="avatar">
       <img src="../assets/avatar/user.png" alt="user"/>
