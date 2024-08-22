@@ -3,6 +3,7 @@
 import CategoryChooser from "@/components/categoryChooser.vue";
 import {nextTick, reactive} from "vue";
 import router from "@/router/index.js";
+import {clearDialog} from "@/components/js/chatFunctions.js";
 
 function openOfficialWebsite() {
   window.open('http://www.bimodeling.cn/')
@@ -29,6 +30,9 @@ const address = reactive(
 )
 
 function setActive(index) {
+  // 清空对话框
+  clearDialog()
+
   // 先更新 active 状态
   address.forEach((item, i) => {
     item.active = i === index;

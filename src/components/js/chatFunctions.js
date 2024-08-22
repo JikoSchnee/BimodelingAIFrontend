@@ -42,8 +42,7 @@ export function clearDialog() {
   chatMessages.value = [];
 }
 
-export function getHELP() {
-  const filePath = 'src/preset/数据库问答说明.md';
+export function getHELP(filePath) {
   fetch(filePath)
     .then(response => {
       if (!response.ok) {

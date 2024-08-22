@@ -8,9 +8,6 @@ import Aside from "@/components/main/Aside.vue";
 import Header from "@/components/main/Header.vue";
 import { chat, userMessage, botMessage, clearDialog, getHELP, textToHTML, scrollToBottom, chatMessages, text } from "../components/js/chatFunctions.js";
 
-const text = ref('') // 输入框
-
-const chatMessages = ref([]) // 管理聊天消息的数组
 
 const sendButtonVisible = ref(true) // 发送按钮可见性
 
@@ -41,6 +38,7 @@ const emptyInput = () => {
     position: "bottom-right"
   })
 }
+
 
 </script>
 
@@ -115,7 +113,7 @@ const emptyInput = () => {
                           content="使用说明"
                           placement="top-end"
                       >
-                        <img @click="getHELP" id="tool-bar-icon" src="@/assets/icon/帮助.png" alt="refresh"/>
+                        <img @click="getHELP('src/preset/数据库问答说明.md')" id="tool-bar-icon" src="@/assets/icon/帮助.png" alt="refresh"/>
                       </el-tooltip>
                     </div>
                   </div>
