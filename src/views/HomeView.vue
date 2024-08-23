@@ -6,13 +6,21 @@ import {marked} from "marked";
 import {ElNotification} from "element-plus";
 import Aside from "@/components/main/Aside.vue";
 import Header from "@/components/main/Header.vue";
-import { chat, userMessage, botMessage, clearDialog, getHELP, textToHTML, scrollToBottom, chatMessages, text } from "../components/js/chatFunctions.js";
+import {
+  chat,
+  userMessage,
+  botMessage,
+  clearDialog,
+  getHELP,
+  textToHTML,
+  scrollToBottom,
+  chatMessages,
+  text
+} from "../components/js/chatFunctions.js";
+
 const baseName = ref('') // 知识库选择
 
-
 const sendButtonVisible = ref(true) // 发送按钮可见性
-
-
 
 const options = [
   {
@@ -40,7 +48,7 @@ const options = [
         <el-header id="grand-header" style="height: 0; padding: 0; margin: 0">
           <!-- 不能删-->
         </el-header>
-        <el-main style="padding: 0;">
+        <el-main style="padding: 0">
           <el-row :gutter="0" style="height: 100%; width: 100%">
             <el-col :span="15">
               <div class="left-container">
@@ -56,7 +64,6 @@ const options = [
             </el-col>
             <el-col :span="9">
               <div class="right-container">
-                <el-row>
                   <div class="setting-container">
                     <!--                  <h1>-->
                     <!--                    选择知识库-->
@@ -73,25 +80,23 @@ const options = [
                       />
                     </el-select>
                   </div>
-                </el-row>
-                <el-row style="height: 2vh">
 
-                </el-row>
+                <div class="chat-container">
+                  <div class="chat-container-header">
 
-                  <div class="chat-container">
-                    <div class="chat-container-header">
-
-                    </div>
-                    <div id="scroll" class="chat-content">
-                      <bot-chat-box HTMLMessage="您好，我是佰模伝AI知识库助手，请问有什么可以为您效劳的？<br>点击下方工具栏的问号获取<u>帮助</u>。" :isPreset="true"
-                                    rawMessage="您好，我是佰模伝AI知识库助手，请问有什么可以为您效劳的？点击下方工具栏的问号获取帮助"/>
-                      <!--                      <user-chat-box HTMLMessage="..."></user-chat-box>-->
-                      <!--                      <bot-chat-box />-->
-                      <div v-for="(msg, index) in chatMessages" :key="index" :style="{ display: 'flex' }">
+                  </div>
+                  <div id="scroll" class="chat-content">
+                    <bot-chat-box
+                        HTMLMessage="您好，我是佰模伝AI知识库助手，请问有什么可以为您效劳的？<br>点击下方工具栏的问号获取<u>帮助</u>。"
+                        :isPreset="true"
+                        rawMessage="您好，我是佰模伝AI知识库助手，请问有什么可以为您效劳的？点击下方工具栏的问号获取帮助"/>
+                    <!--                      <user-chat-box HTMLMessage="..."></user-chat-box>-->
+                    <!--                      <bot-chat-box />-->
+                    <div v-for="(msg, index) in chatMessages" :key="index" :style="{ display: 'flex' }">
                       <!-- bot-chat-box 在最左边 -->
                       <div v-if="msg.type === 'bot'" style="justify-content: start; flex: 1;">
                         <bot-chat-box :maxWidth="40" :HTMLMessage="msg.HTMLMessage" :isPreset="msg.isPreset"
-                                      :rawMessage="msg.rawMessage" :rawQuestion = 'msg.rawQuestion'/>
+                                      :rawMessage="msg.rawMessage" :rawQuestion='msg.rawQuestion'/>
                       </div>
 
                       <!-- user-chat-box 在最右边 -->
@@ -100,66 +105,67 @@ const options = [
                                        :rawMessage="msg.rawMessage"/>
                       </div>
                     </div>
-                    </div>
-                    <div class="chat-tool-bar">
-                      <div class="button-bar">
-                        <el-tooltip
-                            class="box-item"
-                            effect="light"
-                            content="重新提问"
-                            placement="top-start"
-                        >
-                          <img id="tool-bar-icon" src="@/assets/icon/刷新.png" alt="refresh"/>
-                        </el-tooltip>
-                        <el-tooltip
-                            class="box-item"
-                            effect="light"
-                            content="清空对话"
-                            placement="top-start"
-                        >
-                          <img @click="clearDialog" id="tool-bar-icon" src="@/assets/icon/清理.png" alt="refresh"/>
-                        </el-tooltip>
-                        <el-tooltip
-                            class="box-item"
-                            effect="light"
-                            content="添加文档（未启用）"
-                            placement="top-start"
-                        >
-                          <img id="tool-bar-icon" src="@/assets/icon/添加.png" alt="refresh"/>
-                        </el-tooltip>
-                        <el-tooltip
-                            class="box-item"
-                            effect="light"
-                            content="使用说明"
-                            placement="top-end"
-                        >
-                          <img @click="getHELP('src/preset/知识库问答说明.md')" id="tool-bar-icon" src="@/assets/icon/帮助.png" alt="refresh"/>
-                        </el-tooltip>
-                      </div>
-                    </div>
-                    <div class="chat-message-container">
-                      <div class="character">
-                        <el-input
-                            v-model="text"
-                            style="width: 100%; height: 100%;"
-                            type="textarea"
-                            maxlength="1000"
-                            placeholder="请输入问题"
-                            show-word-limit
-                            :autosize="{ minRows: 6, maxRows: 8}"
-                            resize="none"
-                        />
-                      </div>
-                    </div>
-                    <div class="chat-footer">
-                      <div class="copyright">
-                        <p>Copyright © 佰模伝信息科技有限公司</p>
-                      </div>
-                      <div class="send"  @click="chat">
-                        <img src="../assets/icon/send.png" alt="send" style="height: 100%"/>
-                      </div>
+                  </div>
+                  <div class="chat-tool-bar">
+                    <div class="button-bar">
+                      <el-tooltip
+                          class="box-item"
+                          effect="light"
+                          content="重新提问"
+                          placement="top-start"
+                      >
+                        <img id="tool-bar-icon" src="@/assets/icon/刷新.png" alt="refresh"/>
+                      </el-tooltip>
+                      <el-tooltip
+                          class="box-item"
+                          effect="light"
+                          content="清空对话"
+                          placement="top-start"
+                      >
+                        <img @click="clearDialog" id="tool-bar-icon" src="@/assets/icon/清理.png" alt="refresh"/>
+                      </el-tooltip>
+                      <el-tooltip
+                          class="box-item"
+                          effect="light"
+                          content="添加文档（未启用）"
+                          placement="top-start"
+                      >
+                        <img id="tool-bar-icon" src="@/assets/icon/添加.png" alt="refresh"/>
+                      </el-tooltip>
+                      <el-tooltip
+                          class="box-item"
+                          effect="light"
+                          content="使用说明"
+                          placement="top-end"
+                      >
+                        <img @click="getHELP('src/preset/知识库问答说明.md')" id="tool-bar-icon"
+                             src="@/assets/icon/帮助.png" alt="refresh"/>
+                      </el-tooltip>
                     </div>
                   </div>
+                  <div class="chat-message-container">
+                    <div class="character">
+                      <el-input
+                          v-model="text"
+                          style="width: 100%; height: 100%;"
+                          type="textarea"
+                          maxlength="1000"
+                          placeholder="请输入问题"
+                          show-word-limit
+                          :autosize="{ minRows: 6, maxRows: 8}"
+                          resize="none"
+                      />
+                    </div>
+                  </div>
+                  <div class="chat-footer">
+                    <div class="copyright">
+                      <p>Copyright © 佰模伝信息科技有限公司</p>
+                    </div>
+                    <div class="send" @click="chat">
+                      <img src="../assets/icon/send.png" alt="send" style="height: 100%"/>
+                    </div>
+                  </div>
+                </div>
 
 
               </div>
@@ -194,12 +200,13 @@ const options = [
 
 .setting-container {
   width: 100%;
-  height: 100%;
+  height: 8%;
   background-color: #51bccc;
   border-radius: 5px;
   padding-top: 1.5vh;
   padding-bottom: 1.5vh;
   justify-content: center;
+  align-items: center;
   display: flex;
   transition: box-shadow 0.3s ease;
 }
@@ -210,11 +217,11 @@ const options = [
 
 .right-container {
   width: 100%;
-  height: 100%;
+  height: 92vh;
   padding-top: 2vh;
   padding-bottom: 2vh;
   padding-right: 2vh;
-  display: flex;
+  //display: flex;
   flex-direction: column;
 }
 
@@ -225,14 +232,15 @@ const options = [
 }
 
 .chat-container {
+  padding-top: 2vh;
+  flex: 1;
   width: 100%;
-  height: 100%;
+  height: 92%;
   background-color: rgb(255, 255, 255);
   border-radius: 7px;
   transition: box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  flex: 1;
 
 
   .chat-tool-bar {
@@ -248,6 +256,7 @@ const options = [
     .button-bar {
       display: flex;
       width: 1px;
+
       #tool-bar-icon {
         margin-right: 8px;
       }
@@ -278,7 +287,7 @@ const options = [
 }
 
 .chat-content {
-  max-height: 53vh;
+
   flex: 1; /* This makes the chat-content take up available space */
   overflow-y: auto; /* Allows vertical scrolling */
   background-color: #ffffff;

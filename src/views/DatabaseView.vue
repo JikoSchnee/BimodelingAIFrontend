@@ -200,7 +200,7 @@ const emptyInput = () => {
 
 .right-container {
   width: 100%;
-  height: 100%;
+  height: 92vh;
   padding-top: 2vh;
   padding-bottom: 2vh;
   display: flex;
@@ -261,7 +261,7 @@ const emptyInput = () => {
 }
 
 .chat-content {
-  max-height: 61.5vh;
+
   flex: 1; /* This makes the chat-content take up available space */
   overflow-y: auto; /* Allows vertical scrolling */
   background-color: #ffffff;
