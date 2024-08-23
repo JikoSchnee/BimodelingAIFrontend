@@ -80,7 +80,7 @@ const options = [
                       />
                     </el-select>
                   </div>
-
+                <div style="height: 2%"></div>
                 <div class="chat-container">
                   <div class="chat-container-header">
 
@@ -231,10 +231,9 @@ const options = [
 }
 
 .chat-container {
-  padding-top: 2vh;
   flex: 1;
   width: 100%;
-  height: 92%;
+  height: 90%;
   background-color: rgb(255, 255, 255);
   border-radius: 7px;
   transition: box-shadow 0.3s ease;
