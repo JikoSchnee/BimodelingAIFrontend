@@ -42,13 +42,14 @@ export function botMessage(content, lastQuestion, isPreset) {
 export function clearDialog() {
   chatMessages.value = [];
   text.value = '';
-  lastQuestion = '最后一个问题';
+  lastQuestion.value = '最后一个问题';
 }
 
 export function reAsk() {
     console.log('reask')
-    if (lastQuestion !== '最后一个问题') {
-        text.value = lastQuestion
+    if (lastQuestion.value !== '最后一个问题') {
+        text.value = lastQuestion.value
+        // console.log(text.value)
         chat()
     } else {
         noLastQuestion()
@@ -70,11 +71,12 @@ export function getHELP(filePath) {
 }
 
 export function chat() {
+    // console.log(text.value)
   if (!text.value.trim()) {
     emptyInput();
   } else {
     nextTick(() => {
-      lastQuestion = text.value;
+      lastQuestion.value = text.value;
       userMessage();
       nextTick(scrollToBottom);
       botMessage("测试回答", lastQuestion, 0);

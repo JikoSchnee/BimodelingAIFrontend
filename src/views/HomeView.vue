@@ -15,7 +15,7 @@ import {
   textToHTML,
   scrollToBottom,
   chatMessages,
-  text
+  text, reAsk
 } from "../components/js/chatFunctions.js";
 
 const baseName = ref('') // 知识库选择
@@ -114,7 +114,7 @@ const options = [
                           content="重新提问"
                           placement="top-start"
                       >
-                        <img id="tool-bar-icon" src="@/assets/icon/刷新.png" alt="refresh"/>
+                        <img @click="reAsk()" id="tool-bar-icon" src="@/assets/icon/刷新.png" alt="refresh"/>
                       </el-tooltip>
                       <el-tooltip
                           class="box-item"
@@ -221,7 +221,6 @@ const options = [
   padding-top: 2vh;
   padding-bottom: 2vh;
   padding-right: 2vh;
-  //display: flex;
   flex-direction: column;
 }
 
