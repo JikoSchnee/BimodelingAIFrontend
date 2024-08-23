@@ -104,3 +104,13 @@ export function noLastQuestion() {
     position: "bottom-right"
   });
 }
+
+// 成功发送反馈的提示
+export function feedbackSent() {
+   ElNotification({
+    title: '反馈成功',
+    message: h('i', {style: 'color: teal'}, '感谢您的反馈'),
+    type: "success",
+    position: "top-right"
+  });
+}
