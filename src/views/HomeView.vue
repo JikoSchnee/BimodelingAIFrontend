@@ -240,7 +240,6 @@ const options = [
   display: flex;
   flex-direction: column;
 
-
   .chat-tool-bar {
     height: 30px;
     padding: 3px;

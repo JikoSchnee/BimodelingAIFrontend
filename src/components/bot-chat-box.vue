@@ -1,5 +1,12 @@
 <script setup>
 
+import {ref} from "vue";
+
+let goodButtonVisible = ref(true)
+let triggerredGoodButtonVisible = ref(false)
+let badButtonVisible = ref(true)
+let triggerredBadButtonVisible = ref(false)
+
 const props = defineProps({
   rawQuestion: { // 回答对应的问题，用于填写反馈
     type: String
@@ -53,6 +60,24 @@ const copyToClipboard = () => {
     document.body.removeChild(textArea);
   }
 };
+
+// TODO: 给回答点赞
+function goodAnswer() {
+  // 禁用按钮
+  goodButtonVisible.value = false
+  triggerredGoodButtonVisible.value = true
+  badButtonVisible.value = false
+  triggerredBadButtonVisible.value = false
+}
+
+// TODO: 回答反馈
+function badAnswer() {
+  // 禁用按钮
+  goodButtonVisible.value = false
+  triggerredGoodButtonVisible.value = false
+  badButtonVisible.value = false
+  triggerredBadButtonVisible.value = true
+}
 </script>
 
 <template>
@@ -68,6 +93,7 @@ const copyToClipboard = () => {
         </div>
         <div class="content-link">
           <!-- 跳转链接放的位置 -->
+          http://www.bimodeling.cn/
         </div>
       </div>
       <div class="tool" v-if="!isPreset">
@@ -75,10 +101,15 @@ const copyToClipboard = () => {
           <img class="icon-transition" @click="copyToClipboard" src="@/assets/icon/复制-灰.png" alt="copy"/>
         </div>
         <div class="evaluation">
-          <img class="icon-transition" src="@/assets/icon/点赞-灰.png" alt="copy"/>
-          <div style="width: 2px; height: 100%; margin: 1px 2px; border-radius: 1px"></div>
-          <img class="icon-transition" src="@/assets/icon/点踩-灰.png" alt="copy"/>
+          <img v-show="goodButtonVisible" @click="goodAnswer" class="icon-transition" src="@/assets/icon/点赞-灰.png" alt="copy"/>
+          <img v-show="triggerredGoodButtonVisible" src="@/assets/icon/点赞-蓝.png" alt="copy"/>
+          <div v-show="goodButtonVisible" style="width: 2px; height: 100%; margin: 1px 2px; border-radius: 1px"></div>
+          <img v-show="badButtonVisible" @click="badAnswer" class="icon-transition" src="@/assets/icon/点踩-灰.png" alt="copy"/>
+          <img v-show="triggerredBadButtonVisible" src="@/assets/icon/点踩-蓝.png" alt="copy"/>
         </div>
+      </div>
+      <div class="feedback">
+
       </div>
     </div>
   </div>
@@ -121,13 +152,24 @@ const copyToClipboard = () => {
   border-radius: 1vh;
   min-height: 5vh;
   min-width: 90px;
+  flex-direction: column;
 
 
   .main-content {
     display: flex;
     padding: 10px 2vw;
     word-break: break-word; /* 自动换行 */
-  overflow-wrap: break-word; /* 兼容性 */
+    overflow-wrap: break-word; /* 兼容性 */
+  }
+
+  .content-link {
+    border-top-style: solid;
+    border-width: 1px;
+    border-color: #ccc;
+    display: flex;
+    padding: 10px 2vw;
+    word-break: break-word; /* 自动换行 */
+    overflow-wrap: break-word; /* 兼容性 */
   }
 }
 
@@ -151,8 +193,8 @@ const copyToClipboard = () => {
 }
 
 .icon-transition:hover {
-   border-style: solid;
-   border-width: 2px;
+  border-style: solid;
+  border-width: 2px;
   border-color: #51bccc;
  }
 
